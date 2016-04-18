@@ -1,6 +1,28 @@
-# Where do you want the player to go when they enter a world that they are banned in?
-World: world
-X: 0
-Y: 0
-Z: 0
-
+name: PerWorldBan
+version: 1.0.0
+api: 2.0.0
+main: Blubberboy333\PerWorldBan\Main
+commands:
+    worldban:
+        usage: /worldban <player> <world>
+        description: Bans a player in a world
+        permission: pwb.cmd.ban
+    worldpardon:
+        usage: /worldpardon <player> <world>
+        description: Pardons a player in a world
+        permission: pwb.cmd.pardon
+permissions:
+    pwb:
+        default: false
+        description: Allows the player to use all of the PerWorldBan features
+        children:
+            pwb.cmd:
+                default: false
+                description: Allows the player to use all off the PerWorldBan commands
+                children:
+                    pwb.cmd.ban:
+                        default: op
+                        description: Allows the player to ban another player in a world
+                    pwb.cmd.pardon:
+                        default: op
+                        description: Allows the player to pardon another player in a world
