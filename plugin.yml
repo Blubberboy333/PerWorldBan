@@ -4,7 +4,7 @@ api: 2.0.0
 main: Blubberboy333\PerWorldBan\Main
 commands:
     worldban:
-        usage: /worldban <player> <world>
+        usage: /worldban <player> <world> [reason]
         description: Bans a player in a world
         permission: pwb.cmd.ban
     worldpardon:
