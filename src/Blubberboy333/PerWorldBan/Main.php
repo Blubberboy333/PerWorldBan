@@ -91,6 +91,7 @@ class Main extends PluginBase implements Listener{
                                         $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
                                         $file->set($player->getName(), "Banned");
                                         $sender->sendMessage($player->getName()." has been banned in ".$level->getName());
+                                        $this->getLogger()->info("[".$sender->getName()." banned ".$player->getName()." in ".$level->getName());
                                         if($this->checkBan($player->getLevel(), $player->getName() == true){
                                             $world = $this->getConfig()->get("World");
                                             $world = $this->config->get("World");
@@ -115,11 +116,64 @@ class Main extends PluginBase implements Listener{
                                     $sender->sendMessage
                                 }
                             }
+                        }else{
+                            $sender->sendMessage("You need to specify a Level!");
+                            return false;
                         }
+                    }else{
+                        $sender->sendMessage("You need to specify a player!");
+                        return false;
                     }
+                }else{
+                    $sender->sendMessage("You don't have permission to use that command!");
+                    return true;
                 }
             case "worldpardon":
-                
+                if($sender->hasPermission("pwb") || $sender->hasPermission("pwb.cmd") || $sender->hasPermission("pwb.cmd.pardon")){
+                    if(isset($args[0])){
+                        if($isset($args[1])){
+                            $player = $this->getServer()->getPlayer($args[0]);
+                            if($player instanceof Player){
+                                $level = $this->getServer()->getLevelByName($args[1]);
+                                if($level instanceof Level){
+                                    if($this->checkBan($level->getName(), $player->getName()) == true){
+                                        $file = new Config($this->getDataFolder()."Levels/".$level->getName().".yml", Config::YAML);
+                                        $file->set($player->getName(), "Allowed");
+                                        $sender->sendMessage($player->getName()." has been pardoned in ".$level->getName());
+                                        $this->getLogger()->info("[".$sender->getName()." pardoned ".$player->getName()." in ".$level->getName()."]");
+                                        return true;
+                                    }else{
+                                        $sender->sendMessage("That player is already banned in ".$level->getName());
+                                        return true;
+                                    }
+                                }else{
+                                    $sender->sendMessage("There is not level by that name!");
+                                    return true;
+                                }
+                            }else{
+                                if($this->checkBan($args[0], $level->getName()) == true){
+                                    $file = new Config($this->getDataFolder()."Levels/".$level->getName().".yml", Config::YAML);
+                                    $file->set($args[0], "Allowed");
+                                    $sender->sendMessage($args[0]." has been pardoned in ".$level->getName());
+                                    $this->getLogger()->info("[".$sender->getName()." pardoned ".$args[0]." in ".$level->getName()."]");
+                                    return true;
+                                }else{
+                                    $sender->sendMessage("That player doesn't exist!");
+                                    return true;
+                                }
+                            }
+                        }else{
+                            $sender->sendMessage("You need to specify a level!");
+                            return false;
+                        }
+                    }else{
+                        $sender->sendMessage("You need to specify a player!");
+                        return true;
+                    }
+                }else{
+                    $sender->sendMessage("You don't have permission to use that command!");
+                    return true;
+                }
         }
     }
 }
