@@ -80,7 +80,7 @@ class Main extends PluginBase implements Listener{
                 if($sender->hasPermission("pwb") || $sender->hasPermission("pwb.cmd") || $sender->hasPermission("pwb.cmd.ban")){
                     if(isset($args[0])){
                         if(isset($args[1])){
-                            $player = $this->getServer()->getPlayer($args[0])
+                            $player = $this->getServer()->getPlayer($args[0]);
                             if($player instanceof Player){
                                 $level = $this->getServer()->getLevelByName($args[1]);
                                 if($level instanceof Level){
