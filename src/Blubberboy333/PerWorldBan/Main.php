@@ -92,7 +92,7 @@ class Main extends PluginBase implements Listener{
                                         $file->set($player->getName(), "Banned");
                                         $sender->sendMessage($player->getName()." has been banned in ".$level->getName());
                                         $this->getLogger()->info("[".$sender->getName()." banned ".$player->getName()." in ".$level->getName());
-                                        if($this->checkBan($player->getLevel(), $player->getName() == true){
+                                        if($this->checkBan($player->getLevel(), $player->getName() == true)){
                                             $world = $this->getConfig()->get("World");
                                             $world = $this->config->get("World");
                                             $x = $this->config->get("X");
