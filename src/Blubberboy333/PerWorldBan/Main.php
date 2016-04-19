@@ -113,7 +113,9 @@ class Main extends PluginBase implements Listener{
                                 }else{
                                     $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
                                     $file->set($args[0], "Banned");
-                                    $sender->sendMessage
+                                    $sender->sendMessage($args[0]." has been banned in ".$level);
+                                    $level = $this->getServer()->getLevelByName($args[0]);
+                                    $this->getLogger()->info($sender->getName()." banned ".$args[0]."in ".$level);
                                 }
                             }
                         }else{
