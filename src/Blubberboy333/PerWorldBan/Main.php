@@ -37,8 +37,12 @@ class Main extends PluginBase implements Listener{
                 return false;
             }
         }else{
-            $file->set($player->getName(), "Allowed");
-            return false;
+            if($this->getServer()->getPlayer($player) instanceof Player){
+                $file->set($player->getName(), "Allowed");
+                return false;
+            }else{
+                return false
+            }
         }
     }
     
@@ -86,6 +90,7 @@ class Main extends PluginBase implements Listener{
                                     }else{
                                         $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
                                         $file->set($player->getName(), "Banned");
+                                        $sender->sendMessage($player->getName()." has been banned in ".$level->getName());
                                         if($this->checkBan($player->getLevel(), $player->getName() == true){
                                             $world = $this->getConfig()->get("World");
                                             $world = $this->config->get("World");
@@ -96,6 +101,18 @@ class Main extends PluginBase implements Listener{
                                             $player->sendMessage(TextFormat::RED."You are banned in that world!");
                                         }
                                     }
+                                }else{
+                                    $sender->sendMessage($args[1]." isn't a level!");
+                                    return true;
+                                }
+                            }else{
+                                if($this->checkBan == false){
+                                    $sender->sendMessage("That player doesn't exist!");
+                                    return true;
+                                }else{
+                                    $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
+                                    $file->set($args[0], "Banned");
+                                    $sender->sendMessage
                                 }
                             }
                         }
