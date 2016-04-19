@@ -30,12 +30,15 @@ class Main extends PluginBase implements Listener{
     
     public function checkBan(Level $level, Player $player){
         $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
-        if(isset($file->get($player))){
+        if(isset($file->get($player->getName()))){
             if($file->get($player) == "Banned"){
                 return true;
             }else{
                 return false;
             }
+        }else{
+            $file->set($player->getName(), "Allowed");
+            return false;
         }
     }
     
@@ -77,7 +80,22 @@ class Main extends PluginBase implements Listener{
                             if($player instanceof Player){
                                 $level = $this->getServer()->getLevelByName($args[1]);
                                 if($level instanceof Level){
-                                    
+                                    if($this->checkBan($level, $player->getName()) == true){
+                                        $sender->sendMessage($player->getName()." is already banned in that world!");
+                                        return true;
+                                    }else{
+                                        $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
+                                        $file->set($player->getName(), "Banned");
+                                        if($this->checkBan($player->getLevel(), $player->getName() == true){
+                                            $world = $this->getConfig()->get("World");
+                                            $world = $this->config->get("World");
+                                            $x = $this->config->get("X");
+                                            $y = $this->config->get("Y");
+                                            $z = $this->config->get("Z");
+                                            $player->teleport(new Position($x, $y, $z, $world));
+                                            $player->sendMessage(TextFormat::RED."You are banned in that world!");
+                                        }
+                                    }
                                 }
                             }
                         }
