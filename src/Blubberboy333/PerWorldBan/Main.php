@@ -41,7 +41,7 @@ class Main extends PluginBase implements Listener{
                 $file->set($player->getName(), "Allowed");
                 return false;
             }else{
-                return false
+                return false;
             }
         }
     }
