@@ -75,7 +75,7 @@ class Main extends PluginBase implements Listener{
     }
     
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
-        switch(command->getName()){
+        switch($command->getName()){
             case "worldban":
                 if($sender->hasPermission("pwb") || $sender->hasPermission("pwb.cmd") || $sender->hasPermission("pwb.cmd.ban")){
                     if(isset($args[0])){
