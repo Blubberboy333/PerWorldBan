@@ -30,7 +30,7 @@ class Main extends PluginBase implements Listener{
     
     public function checkBan(Level $level, Player $player){
         $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
-        if(isset($file->get($player->getName()))){
+        if($file->get($player->getName()) !== null){
             if($file->get($player) == "Banned"){
                 return true;
             }else{
