@@ -54,8 +54,12 @@ class Main extends PluginBase implements Listener{
             $x = $this->config->get("X");
             $y = $this->config->get("Y");
             $z = $this->config->get("Z");
-            $player->teleport(new Position($x, $y, $z, $world));
-            $player->sendMessage(TextFormat::RED."You are banned in that world!");
+            if($this->checkBan($this->getServer()->getLevelByName($this->getConfig()->get("World")), $player) == false){
+                $player->teleport(new Position($x, $y, $z, $world));
+                $player->sendMessage(TextFormat::RED."You are banned in that world!");
+            }else{
+                $player->kick("There has been an error.");
+            }
         }
     }
     
@@ -68,8 +72,12 @@ class Main extends PluginBase implements Listener{
                 $x = $this->config->get("X");
                 $y = $this->config->get("Y");
                 $z = $this->config->get("Z");
-                $player->teleport(new Position($x, $y, $z, $world));
-                $player->sendMessage(TextFormat::RED."You are banned in that world!");
+                if($this->checkBan($this->getServer()->getLevelByName($this->getConfig()->get("World")), $player) == false){
+                    $player->teleport(new Position($x, $y, $z, $world));
+                    $player->sendMessage(TextFormat::RED."You are banned in that world!");
+                }else{
+                    $player->kick("There has been an error.");
+                }
             }
         }
     }
@@ -98,17 +106,22 @@ class Main extends PluginBase implements Listener{
                                             $x = $this->config->get("X");
                                             $y = $this->config->get("Y");
                                             $z = $this->config->get("Z");
-                                            $player->teleport(new Position($x, $y, $z, $world));
-                                            $player->sendMessage(TextFormat::RED."You are banned in that world!");
+                                            if($this->getServer()->getLevelByName($this->getConfig()->get("World")), $player) == false){)
+                                                $player->teleport(new Position($x, $y, $z, $world));
+                                                $player->sendMessage(TextFormat::RED."You are banned in that world!");
+                                            }else{
+                                                $sender->sendMessage(TextFormat::RED."You can't ban players in that world!");
+                                                return true;
+                                            }
                                         }
                                     }
                                 }else{
-                                    $sender->sendMessage($args[1]." isn't a level!");
+                                    $sender->sendMessage(TextFormat::YELLOW.$args[1]." isn't a level!");
                                     return true;
                                 }
                             }else{
                                 if($this->checkBan == false){
-                                    $sender->sendMessage("That player doesn't exist!");
+                                    $sender->sendMessage(TextFormat::RED."That player doesn't exist!");
                                     return true;
                                 }else{
                                     $file = new Config($this->getDataFolder()."Levels/".$level.".yml");
@@ -119,15 +132,15 @@ class Main extends PluginBase implements Listener{
                                 }
                             }
                         }else{
-                            $sender->sendMessage("You need to specify a Level!");
+                            $sender->sendMessage(TextFormat::YELLOW."You need to specify a Level!");
                             return false;
                         }
                     }else{
-                        $sender->sendMessage("You need to specify a player!");
+                        $sender->sendMessage(TextFormat::YELLOW."You need to specify a player!");
                         return false;
                     }
                 }else{
-                    $sender->sendMessage("You don't have permission to use that command!");
+                    $sender->sendMessage(TextFormat::RED."You don't have permission to use that command!");
                     return true;
                 }
             case "worldpardon":
@@ -145,11 +158,11 @@ class Main extends PluginBase implements Listener{
                                         $this->getLogger()->info("[".$sender->getName()." pardoned ".$player->getName()." in ".$level->getName()."]");
                                         return true;
                                     }else{
-                                        $sender->sendMessage("That player is already banned in ".$level->getName());
+                                        $sender->sendMessage(TextFormat::YELLOW."That player is not banned in ".$level->getName());
                                         return true;
                                     }
                                 }else{
-                                    $sender->sendMessage("There is not level by that name!");
+                                    $sender->sendMessage(TextFormat::YELLOW."There is not level by that name!");
                                     return true;
                                 }
                             }else{
@@ -160,20 +173,20 @@ class Main extends PluginBase implements Listener{
                                     $this->getLogger()->info("[".$sender->getName()." pardoned ".$args[0]." in ".$level->getName()."]");
                                     return true;
                                 }else{
-                                    $sender->sendMessage("That player doesn't exist!");
+                                    $sender->sendMessage(TextFormat::RED."That player doesn't exist!");
                                     return true;
                                 }
                             }
                         }else{
-                            $sender->sendMessage("You need to specify a level!");
+                            $sender->sendMessage(TextFormat::YELLOW."You need to specify a level!");
                             return false;
                         }
                     }else{
-                        $sender->sendMessage("You need to specify a player!");
+                        $sender->sendMessage(TextFormat::YELLOW."You need to specify a player!");
                         return true;
                     }
                 }else{
-                    $sender->sendMessage("You don't have permission to use that command!");
+                    $sender->sendMessage(TextFormat::RED."You don't have permission to use that command!");
                     return true;
                 }
         }
