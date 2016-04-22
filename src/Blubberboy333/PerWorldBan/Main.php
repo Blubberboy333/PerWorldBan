@@ -106,7 +106,7 @@ class Main extends PluginBase implements Listener{
                                             $x = $this->config->get("X");
                                             $y = $this->config->get("Y");
                                             $z = $this->config->get("Z");
-                                            if($this->checkBan($this->getServer()->getLevelByName($this->getConfig()->get("World")), $player) == false){)
+                                            if($this->checkBan($this->getServer()->getLevelByName($this->getConfig()->get("World")), $player) == false){
                                                 $player->teleport(new Position($x, $y, $z, $world));
                                                 $player->sendMessage(TextFormat::RED."You are banned in that world!");
                                             }else{
