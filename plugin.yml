@@ -1,5 +1,5 @@
 name: PerWorldBan
-version: 0.0.1
+version: 0.1.1
 api: 2.0.0
 main: Blubberboy333\PerWorldBan\Main
 commands:
